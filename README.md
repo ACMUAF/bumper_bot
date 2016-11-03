@@ -1,4 +1,5 @@
 To install the Wemos boards, you'll need to:
+
 	1. Open up Arduino IDE
 	2. Preferences
 	3. Additional Boards Manager URLs
@@ -12,6 +13,7 @@ To install the Wemos boards, you'll need to:
 	10. You should see a new board named "WeMos D1 & R2".
 
 Note on OSX:
+
 	For OSX you will need to install a driver and disable csr.
 	Download the drivers from the link below:
 		http://blog.sengotta.net/wp-content/uploads/2015/11/CH34x_Install_V1.3.zip
