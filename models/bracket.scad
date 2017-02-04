@@ -1,0 +1,51 @@
+wiggle=0.5;
+i_dim=[10+wiggle,12+wiggle,9];
+walls=2;
+o_dim=[i_dim.x+2*walls,i_dim.y+2*walls,i_dim.z+walls];
+screw_hole_spacing=21;
+screw_hole_d=3.5;
+sigma=0.001;
+base_dim=[o_dim.x,28,2];
+motor_shaft=4.5;
+$fn=100;
+support_d=8;
+support_walls=1;
+
+module bracket()
+{
+    intersection()
+    {
+        difference()
+        {
+            union()
+            {
+                translate([-o_dim.x/2,-o_dim.y/2,0])
+                    cube(size=o_dim);
+                translate([-base_dim.x/2,-base_dim.y/2,0])
+                    cube(size=base_dim);
+            }
+            translate([0,0,-sigma])
+                union()
+                {
+                    translate([-i_dim.x/2,-i_dim.y/2,0])
+                        cube(size=i_dim);
+                    translate([0,-screw_hole_spacing/2,0])
+                        cylinder(d=screw_hole_d,h=20);
+                    translate([0,screw_hole_spacing/2,0])
+                        cylinder(d=screw_hole_d,h=20);
+                    cylinder(h=o_dim.z+sigma*2,d=motor_shaft);
+                }
+        }
+        scale([base_dim.x,base_dim.y])
+            cylinder(d=1,h=o_dim.z);
+    }
+
+    difference()
+    {
+        cylinder(d=support_d,h=i_dim.z-0.5);
+        translate([0,0,-sigma])
+            cylinder(d=support_d-support_walls*2,h=i_dim.z-0.5+sigma*2);
+    }
+}
+
+bracket();
