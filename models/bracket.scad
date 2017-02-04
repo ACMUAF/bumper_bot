@@ -1,5 +1,5 @@
 wiggle=0.5;
-i_dim=[10+wiggle,12+wiggle,9];
+i_dim=[10+wiggle,12+wiggle,10];
 walls=2;
 o_dim=[i_dim.x+2*walls,i_dim.y+2*walls,i_dim.z+walls];
 screw_hole_spacing=21;
