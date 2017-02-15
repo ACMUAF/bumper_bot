@@ -1,7 +1,7 @@
 HTTP/1.1 200 OK\r\n\r\n
 
 <html>
-<style> div.wm { position: relative; left: 36px; height: 1px; }</style>
+<style> div.wm { position: relative; left: 2%; height: 1px; }</style>
 <head>
 	<title>Bumper Bot Controls</title>
 	<script>
@@ -44,8 +44,8 @@ HTTP/1.1 200 OK\r\n\r\n
 		s:function() {drive(-40,-40)},
 		d:function() {drive(-35,35)},
 		a:function() {drive(35,-35)},
-		f:function() {drive(0,0,1)},
-		g:function() {drive(0,0,2)}
+		f:{f:function() {drive(0,0,1)},disc:"sends command 1 (toggles builtin LED"},
+		g:{f:function() {drive(0,0,2)},disc:"sends command 2 (toggles pin D3)"}
 	};
 	//key board listener for keyboard controlled movement and functions
 	window.addEventListener('keydown',
@@ -100,7 +100,7 @@ HTTP/1.1 200 OK\r\n\r\n
     	for(var key in cons){
         	if(key!="a"&&key!="s"&&key!="stop"&&key!="w"&&key!="d"&&key!=" "){
            		var tr='<tr>';
-           		tr += "<td>"+"<input type='button' value='"+key+"' onclick='cons."+key+"();'/></td></tr>";
+           		tr += "<td>"+"<input type='button' value='"+key+"' onclick='cons."+key+"();'/></td><td>"+cons[key].disc+"</td></tr>";
            		table.innerHTML+=tr;
            		console.log(table);
   				console.log(tr);
