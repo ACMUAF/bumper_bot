@@ -5,11 +5,8 @@ import urllib
 import urllib2
 
 if __name__=='__main__':
-	if len(sys.argv)<2:
-		print('Expected filename')
-		exit(1)
 	try:
-		with open(sys.argv[1]) as html:
+		with open('index.html') as html:
 			code=html.read()
 			req=urllib2.Request('http://minify.minifier.org/','source='+urllib.quote_plus(code)+'&type=js')
 			minified=json.loads(urllib2.urlopen(req).read())['minified'].replace('"','\\"')
@@ -20,7 +17,9 @@ if __name__=='__main__':
 					c_code+='\t'
 				first_line=False
 				c_code+='"'+line+'"\n'
-			print('const char webpage[] PROGMEM='+c_code.rstrip()+';')
+			with open('../firmware/webpage.h','w+') as c_file:
+				c_file.write('const char webpage[] PROGMEM='+c_code.rstrip()+';')
+				c_file.close()
 	except KeyboardInterrupt:
 		exit(1)
 	except Exception as error:

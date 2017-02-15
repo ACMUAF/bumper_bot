@@ -26,6 +26,5 @@ To update the web side of things:
 
 	Change your directory to web_side.
 	Edit index.html.
-	Run: ./minify.py index.html > temp.c
-	Replace the "webpage"  variable in firmware/firmware.ino with the code in temp.c.
-	Upload code.
+	Run: ./minify.py
+	Upload code via Arduino IDE.
