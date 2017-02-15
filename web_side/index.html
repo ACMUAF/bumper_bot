@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+	<html>
+	<style> div.wm { position: relative; left: 36px; height: 1px; }</style>
+	<head>
+		<title>Bumper Bot Controls</title>
+		<script>
+		//drive is the function that sends all controls
+		//	drive with 2 parameters sends motor speeds negative speeds with put a motor in reverse
+		//	drive with 3 parameters sends commands and keeps current speed command is a number as third parameter
+		function drive(L,R,C=0){if(C==0){var req='?'+L+','+R+'!';}else{var req ='?C,C!'+C+'&'}var xhr=new XMLHttpRequest();xhr.open('GET',req,!0);xhr.send();}
+
+		//toggles tilt contoll and changes the button to display current state
+		function toggleTilt(){
+			tilt=!tilt;
+			if(tilt){
+			document.getElementById('ttog').innerHTML='on';
+			}else{
+			document.getElementById('ttog').innerHTML='off';
+			}
+		}
+
+		var maxspeed=75;	//used to scale tilt input
+		var tilt=false; //tilt toggle variable
+		var center_gamma=-45; //where the tilt controll is turned on
+		var center_beta=0;
+
+		//a object full of keycodes associated with drivefunction calls
+		var cons={//add more functions here, the keys should be the js keycode
+			' ':function() {drive(0,0)},
+			stop:function() {drive(0,0)},
+			w:function() {drive(75,75)},
+			s:function() {drive(-40,-40)},
+			d:function() {drive(-35,35)},
+			a:function() {drive(35,-35)},
+			f:function() {drive(0,0,1)},
+			g:function() {drive(0,0,2)}
+		};
+		//key board listener for keyboard controlled movement and functions
+		window.addEventListener('keydown',
+			function (event) {
+				if (event.defaultPrevented){return;}
+				var k=event.key;
+				if(k in cons){
+				cons[k]();
+				}else{
+				console.log('nokey: '+k);
+				}
+				event.preventDefault();},
+				true);
+		//adds a device orientation listener for WIP tilt controlls
+		window.addEventListener('deviceorientation',
+			function(event){
+			console.log('logit'+event.beta);
+				if(tilt){
+				drive(event.gamma-center_gamma+(event.beta),event.gamma-center_gamma-(event.beta));
+				console.log('throt: '+(event.gamma-center_gamma)+event.beta);
+				 }
+				 //debug to see current tilt info
+				 document.getElementById('disABG').innerHTML='A:'+event.alpha+' B:'+event.beta+' G:'+event.gamma+' betaOff:'+(center_beta-event.beta)+'gammaOff:'+(center_gamma-event.gamma);
+
+			},
+		 true);
+
+		</script>
+	</head>
+	<body>
+	<!--controll buttons-->
+	<div class='wm'><input id='bfw' type='button' value='w' onclick='cons.w();'/></div><br>
+	<input id='bl' type='button' value='a' onclick='cons.a();'/>
+	<input id='bbw' type='button' value='s' onclick='cons.s();'/>
+	<input id='br' type='button' value='d' onclick='cons.d();'/><br>
+	<input id='bstp' type='button' value='space' onclick='cons.stop();'/>
+	<!--toggle tilt controll button-->
+	<br>Tilt controll is not working<br>Tilt toggle: <button id='ttog' onclick='toggleTilt()'>off</button>
+	<!--space to display alpha beta gamma rotation data-->
+	<br><br><span id='disABG'></span>
+
+	</body>
+</html>
