@@ -82,8 +82,7 @@
 <input id='bbw' type='button' value='s' onclick='cons.s();'/>
 <input id='br' type='button' value='d' onclick='cons.d();'/><br>
 <input id='bstp' type='button' value='space' onclick='cons.stop();'/>
-<table>
-<body id='extraFuncs'></body>
+<table id='extraFuncs'>
 </table>
 <!--toggle tilt controll button-->
 <br>Tilt controll is not working<br>Tilt toggle: <button id='ttog' onclick='toggleTilt()'>off</button>
@@ -99,10 +98,13 @@
     	for(var key in cons){
         	if(key!="a"&&key!="s"&&key!="stop"&&key!="w"&&key!="d"&&key!=" "){
            		var tr='<tr>';
-           		tr += "<td>"+"<input type='button' value='"+key+"' onclick='cons."+key+"();'</td></tr>";
+           		tr += "<td>"+"<input type='button' value='"+key+"' onclick='cons."+key+"();'/></td></tr>";
            		table.innerHTML+=tr;
+           		console.log(table);
+  				console.log(tr);
        		}
         }
     }
+    makeExtraButtons();
 </script>
 </html>
