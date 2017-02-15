@@ -11,6 +11,7 @@ To install the Wemos boards, you'll need to:
 	8. Type in "esp8266".
 	9. Install the esp8266 package.
 	10. You should see a new board named "WeMos D1 & R2".
+	11. SET THE CPU FREQUENCY TO 160MHz!
 
 Note on OSX:
 
