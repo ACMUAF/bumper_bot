@@ -100,7 +100,7 @@ HTTP/1.1 200 OK\r\n\r\n
     	for(var key in cons){
         	if(key!="a"&&key!="s"&&key!="stop"&&key!="w"&&key!="d"&&key!=" "){
            		var tr='<tr>';
-           		tr += "<td>"+"<input type='button' value='"+key+"' onclick='cons."+key+"();'/></td><td>"+cons[key].disc+"</td></tr>";
+           		tr += "<td>"+"<input type='button' value='"+key+"' onclick='cons."+key+".f();'/></td><td>"+cons[key].disc+"</td></tr>";
            		table.innerHTML+=tr;
            		console.log(table);
   				console.log(tr);
