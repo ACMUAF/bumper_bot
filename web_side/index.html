@@ -71,7 +71,7 @@ HTTP/1.1 200 OK\r\n\r\n
 			}
 
 			//debug to see current tilt info
-			document.getElementById('disABG').innerHTML='A:'+event.alpha+' B:'+event.beta+' G:'+event.gamma+' betaOff:'+(center_beta-event.beta)+'gammaOff:'+(center_gamma-event.gamma);
+			document.getElementById('disABG').innerHTML='A:'+Math.floor(event.alpha)+' B:'+Math.floor(event.beta)+' G:'+Math.floor(event.gamma)+' betaOff:'+Math.floor(center_beta-event.beta)+'gammaOff:'+Math.floor(center_gamma-event.gamma);
 
 		},true);
 
