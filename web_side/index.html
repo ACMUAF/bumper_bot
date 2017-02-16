@@ -44,7 +44,8 @@
 
 		.key.sp
 		{
-			width:calc(var(--width) * 3 + var(--spacing) * 4);
+			/*width:calc(var(--width) * 3 + var(--spacing) * 4);*/
+			width:196;
 		}
 
 		.debug
@@ -138,6 +139,11 @@
 			window.addEventListener('deviceorientation',
 				function(event)
 				{
+					var beta=event.beta;
+					if(beta<-45)
+						beta=-45;
+					if(beta>45)
+						beta=45;
 					if(tilt)
 					{
 						orient_x=Math.floor(event.gamma-center_gamma)-event.beta;
