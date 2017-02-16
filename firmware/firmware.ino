@@ -9,7 +9,7 @@
 #include "bumperbot_stuff.h"
 
 //SSID and password
-const char ssid[]="BB-01";
+const char ssid[]="BB-9997";
 const char password[]="bumperbot";
 
 #include "webpage.h"
@@ -24,8 +24,12 @@ Motor M1(0x30,_MOTOR_A,1000);
 Motor M2(0x30,_MOTOR_B,1000);
 int speed_l=0;
 int speed_r=0;
-int turn_l=_CW;
-int turn_r=_CW;
+const int lf=_CW;
+const int lb=_CCW;
+const int rf=_CW;
+const int rb=_CCW;
+int turn_l=lf;
+int turn_r=rf;
 
 void setup() {
   // Start serial port, prints address
@@ -76,38 +80,46 @@ void loop() {
 }
 
 //processes the request sent by from the wweb page
-void doRequest(String r){
+void doRequest(String r)
+{
   //pulls the motor controll info frim the request string
   String m=r.substring(r.indexOf("?")+1,r.indexOf("!"));
 
   //checks if the motor controll should be ignored
-  if(m.substring(0,m.indexOf(","))!="C"){
+  if(m.substring(0,m.indexOf(","))!="C")
+  {
     //sets motors to the speed in the request
     speed_l=m.substring(0,m.indexOf(",")).toInt();
+    turn_l=lf;
     if(speed_l<0)
     {
-      turn_l=_CCW;
-      speed_l*=-1;
-    }else if(turn_l!=_CW){turn_l=_CW;}
+        speed_l*=-1;
+        turn_l=lb;
+    }
 
     speed_r=m.substring(m.indexOf(",")+1).toInt();
-     if(speed_r<0)
+    turn_r=rf;
+    if(speed_r<0)
     {
-      turn_r=_CCW;
-      speed_r*=-1;
-    }else if(turn_r!=_CW){turn_r=_CW;}
-  }else{
+        speed_r*=-1;
+        turn_r=rb;
+    }
+  }
+  else
+  {
     //gets the command info and runs its function
     String c=r.substring(r.indexOf("!")+1,r.indexOf("&"));
-    switch(c.toInt()){//add command functions here
-      case(1):
-        light.tog();
-        break;
-      case(2):
-        light2.tog();
-        break;
-      default:
-        break;
+    switch(c.toInt())
+    {
+        //add command functions here
+        case(1):
+            light.tog();
+            break;
+        case(2):
+            light2.tog();
+            break;
+        default:
+            break;
     }
   }
 }
