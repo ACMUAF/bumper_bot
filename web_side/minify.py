@@ -18,7 +18,7 @@ if __name__=='__main__':
 				first_line=False
 				c_code+='"'+line+'"\n'
 			with open('../firmware/webpage.h','w+') as c_file:
-				c_file.write('const char webpage[] PROGMEM='+c_code.rstrip()+';')
+				c_file.write('const char webpage[] PROGMEM="HTTP/1.1 200 OK\\r\\n\\r\\n"\n\t'+c_code.rstrip()+';')
 				c_file.close()
 	except KeyboardInterrupt:
 		exit(1)
